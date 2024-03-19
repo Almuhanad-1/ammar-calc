@@ -14,14 +14,16 @@
         margin: 0;
         padding: 0;
         display: flex;
-        flex-direction: column;
+        flex-wrap: wrap;
         justify-content: center;
+        align-items: center;
+        gap: 40px;
         height: 100vh;
       }
       .container {
         max-width: 80%;
-        margin: auto;
-        padding: 40px;
+        min-width: 290px;
+        padding: 0 40px 20px;
         overflow: hidden;
         display: flex;
         flex-direction: column;
@@ -49,6 +51,10 @@
         border: 1px solid #ccc;
         border-radius: 5px;
       }
+      .btns {
+        display: flex;
+        gap: 10px;
+      }
       button {
         padding: 10px 20px;
         border: none;
@@ -62,31 +68,75 @@
   </head>
   <body>
     <div class="container">
+      <h4>Function 1</h4>
       <div class="input-container">
-        <label for="diagram">Diagram</label>
-        <input type="number" id="diagram" name="diagram" />
+        <label for="diameter1">Diameter</label>
+        <input type="number" id="diameter1" name="diameter1" />
       </div>
       <div class="input-container">
-        <label for="vc">Vc</label>
-        <input type="number" id="vc" name="vc" />
+        <label for="vc1">Vc</label>
+        <input type="number" id="vc1" name="vc1" />
       </div>
-      <button onclick="calculate()">Calculate</button>
-      <div id="result"></div>
+      <div class="btns">
+        <button onclick="calculateN()">Calculate N</button>
+        <button onclick="reset1()">reset</button>
+      </div>
+
+      <div id="nResult"></div>
+    </div>
+
+    <div class="container">
+      <h4>Function 2</h4>
+      <div class="input-container">
+        <label for="diameter2">Diameter</label>
+        <input type="number" id="diameter2" name="diameter2" />
+      </div>
+      <div class="input-container">
+        <label for="n2">N</label>
+        <input type="number" id="n2" name="n2" />
+      </div>
+      <div class="btns">
+        <button onclick="calculateVc()">Calculate Vc</button>
+        <button onclick="reset2()">reset</button>
+      </div>
+      <div id="VcResult"></div>
     </div>
 
     <script>
-      const diagram = document.getElementById("diagram");
-      const vc = document.getElementById("vc");
-      const result = document.getElementById("result");
+      const diameter1 = document.getElementById("diameter1");
+      const vc1 = document.getElementById("vc1");
+      const nResult = document.getElementById("nResult");
 
-      function calculate() {
-        const diagramValue = diagram.value;
-        const vcValue = vc.value;
+      const diameter2 = document.getElementById("diameter2");
+      const n2 = document.getElementById("n2");
+      const VcResult = document.getElementById("VcResult");
 
-        let N = (vcValue * 1000) / (3.14 * diagramValue);
-        let Vc = (3.14 * diagramValue * N) / 1000;
+      function calculateVc() {
+        const diameterValue = diameter2.value;
+        const nValue = n2.value;
+        let Vc = (nValue * 3.14 * diameterValue) / 1000;
+        VcResult.innerHTML = `Vc = ${Vc}`;
+      }
 
-        result.innerHTML = `N = ${N} <br> Vc = ${Vc}`;
+      function calculateN() {
+        const diameterValue = diameter1.value;
+        const vcValue = vc1.value;
+        console.log(diameterValue, vcValue);
+        let N = (vcValue * 1000) / (3.14 * diameterValue);
+        n2.value = N;
+        nResult.innerHTML = `N = ${N}`;
+      }
+
+      function reset1() {
+        diameter1.value = "";
+        vc1.value = "";
+        nResult.innerHTML = "";
+      }
+
+      function reset2() {
+        diameter2.value = "";
+        n2.value = "";
+        VcResult.innerHTML = "";
       }
     </script>
   </body>
