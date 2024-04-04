@@ -64,14 +64,23 @@
         font-size: 20px;
         cursor: pointer;
       }
+
+      /* #nResult {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f4f4f4;
+      } */
     </style>
   </head>
   <body>
     <div class="container">
       <h4>Function 1</h4>
       <div class="input-container">
-        <label for="diameter1">Diameter</label>
-        <input type="number" id="diameter1" name="diameter1" />
+        <label for="Dm">Dm</label>
+        <input type="number" id="Dm" name="Dm" />
       </div>
       <div class="input-container">
         <label for="vc1">Vc</label>
@@ -82,61 +91,28 @@
         <button onclick="reset1()">reset</button>
       </div>
 
-      <div id="nResult"></div>
-    </div>
-
-    <div class="container">
-      <h4>Function 2</h4>
       <div class="input-container">
-        <label for="diameter2">Diameter</label>
-        <input type="number" id="diameter2" name="diameter2" />
+        <input id="nResult" name="nResult" type="text" readonly />
       </div>
-      <div class="input-container">
-        <label for="n2">N</label>
-        <input type="number" id="n2" name="n2" />
-      </div>
-      <div class="btns">
-        <button onclick="calculateVc()">Calculate Vc</button>
-        <button onclick="reset2()">reset</button>
-      </div>
-      <div id="VcResult"></div>
     </div>
-
     <script>
-      const diameter1 = document.getElementById("diameter1");
+      // N = Vc × 1000 ÷ pi × Dm
+      const Dm = document.getElementById("Dm");
       const vc1 = document.getElementById("vc1");
       const nResult = document.getElementById("nResult");
 
-      const diameter2 = document.getElementById("diameter2");
-      const n2 = document.getElementById("n2");
-      const VcResult = document.getElementById("VcResult");
-
-      function calculateVc() {
-        const diameterValue = diameter2.value;
-        const nValue = n2.value;
-        let Vc = (nValue * 3.14 * diameterValue) / 1000;
-        VcResult.innerHTML = `Vc = ${Vc}`;
-      }
-
       function calculateN() {
-        const diameterValue = diameter1.value;
+        const diameterValue = Dm.value;
         const vcValue = vc1.value;
         console.log(diameterValue, vcValue);
-        let N = (vcValue * 1000) / (3.14 * diameterValue);
-        n2.value = N;
-        nResult.innerHTML = `N = ${N}`;
+        let N = (vcValue * 1000) / (Math.PI * diameterValue);
+        nResult.value = `${N}`;
       }
 
       function reset1() {
-        diameter1.value = "";
+        Dm.value = "";
         vc1.value = "";
         nResult.innerHTML = "";
-      }
-
-      function reset2() {
-        diameter2.value = "";
-        n2.value = "";
-        VcResult.innerHTML = "";
       }
     </script>
   </body>
