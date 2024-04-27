@@ -40,21 +40,23 @@
         flex-direction: column;
         gap: 10px;
       }
-      .input-container label {
+      label {
         color: #333;
         font-size: 20px;
       }
-      .input-container input {
+      input {
         width: 100%;
         padding: 10px;
         margin: 10px 0;
         border: 1px solid #ccc;
         border-radius: 5px;
       }
+
       .btns {
         display: flex;
         gap: 10px;
       }
+
       button {
         padding: 10px 20px;
         border: none;
@@ -65,14 +67,15 @@
         cursor: pointer;
       }
 
-      /* #nResult {
-        width: 100%;
+      .operator-select {
+        width: calc(50% - 30px);
+        margin-bottom: 10px;
         padding: 10px;
-        margin: 10px 0;
+        font-size: 18px;
         border: 1px solid #ccc;
-        border-radius: 5px;
-        background-color: #f4f4f4;
-      } */
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
     </style>
   </head>
   <body>
@@ -95,6 +98,35 @@
         <input id="nResult" name="nResult" type="text" readonly />
       </div>
     </div>
+    <div class="container">
+      <h4>Calculator</h4>
+      <input
+        type="text"
+        class="input-field"
+        id="operand1"
+        placeholder="Operand 1"
+      />
+      <select class="operator-select" id="operator">
+        <option value="+">+</option>
+        <option value="-">-</option>
+        <option value="*">*</option>
+        <option value="/">/</option>
+      </select>
+      <input
+        type="text"
+        class="input-field"
+        id="operand2"
+        placeholder="Operand 2"
+      />
+      <button class="btn" onclick="calculate()">Calculate</button>
+      <input
+        type="text"
+        class="input-field"
+        id="result"
+        placeholder="Result"
+        readonly
+      />
+    </div>
     <script>
       // N = Vc × 1000 ÷ pi × Dm
       const Dm = document.getElementById("Dm");
@@ -113,6 +145,36 @@
         Dm.value = "";
         vc1.value = "";
         nResult.innerHTML = "";
+      }
+
+      function calculate() {
+        let operand1 = parseFloat(document.getElementById("operand1").value);
+        let operand2 = parseFloat(document.getElementById("operand2").value);
+        let operator = document.getElementById("operator").value;
+        let result;
+
+        switch (operator) {
+          case "+":
+            result = operand1 + operand2;
+            break;
+          case "-":
+            result = operand1 - operand2;
+            break;
+          case "*":
+            result = operand1 * operand2;
+            break;
+          case "/":
+            if (operand2 !== 0) {
+              result = operand1 / operand2;
+            } else {
+              result = "Cannot divide by zero";
+            }
+            break;
+          default:
+            result = "Invalid operator";
+        }
+
+        document.getElementById("result").value = result;
       }
     </script>
   </body>
